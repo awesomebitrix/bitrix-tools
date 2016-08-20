@@ -8,5 +8,13 @@
       "name": "Igor Pinchuk",
       "email": "kolgarn@yandex.ru"
     }
-  ]
+  ],
+  "require": {
+    "symfony/console": "^3.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "SomeWork\\": "src/"
+    }
+  }
 }
