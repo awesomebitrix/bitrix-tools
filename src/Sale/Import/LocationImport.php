@@ -15,13 +15,6 @@
  * limitations under the License.
  */
 
-/**
- * Created by PhpStorm.
- * User: Igor
- * Date: 20.08.2016
- * Time: 17:33
- */
-
 namespace SomeWork\Sale\Import;
 
 
