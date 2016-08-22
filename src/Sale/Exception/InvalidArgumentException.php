@@ -15,15 +15,17 @@
  * limitations under the License.
  */
 
-namespace SomeWork\Sale\Enum;
+namespace SomeWork\Exception;
 
 
-class ErrorCodeEnum
+class InvalidArgumentException extends ImportException
 {
-    const MODULE_LOAD = 500;
-    const TIME_LIMIT_CHANGE = 501;
-    const MEMORY_LIMIT_CHANGE = 502;
-
-    const REQUIRED_SOURCE = 503;
-    const INVALID_SOURCE = 504;
+    public function __construct($message = '', $code = 0, \Exception $previous = null)
+    {
+        $message = sprintf(
+            'Invalid argument "%s"',
+            $message
+        );
+        parent::__construct($message, $code, $previous);
+    }
 }

@@ -18,19 +18,7 @@
 namespace SomeWork\Exception;
 
 
-use SomeWork\Sale\Enum\ErrorCodeEnum;
-use SomeWork\Sale\Enum\ErrorMessageEnum;
-
-class LoadModuleException extends \RuntimeException
+class BitrixException extends \RuntimeException
 {
-    public function __construct($message, $code = ErrorCodeEnum::MODULE_LOAD, \Exception $previous = null)
-    {
-        if ($message) {
-            $message = sprintf(
-                ErrorMessageEnum::MODULE_LOAD,
-                $message
-            );
-        }
-        parent::__construct($message, $code, $previous);
-    }
+
 }

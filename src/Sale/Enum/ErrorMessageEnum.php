@@ -21,5 +21,10 @@ namespace SomeWork\Sale\Enum;
 
 class ErrorMessageEnum
 {
-    const MODULE_LOAD = 'Cant load module %s';
+    const MODULE_LOAD = 'Cant load required bitrix module';
+    const TIME_LIMIT_CHANGE = 'Cant change time limit';
+    const MEMORY_LIMIT_CHANGE = 'Cant change memory limit';
+
+    const REQUIRED_SOURCE = 'Invalid source for current method';
+    const INVALID_SOURCE = 'Invalid source';
 }

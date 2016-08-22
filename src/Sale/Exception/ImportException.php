@@ -15,15 +15,10 @@
  * limitations under the License.
  */
 
-namespace SomeWork\Sale\Enum;
+namespace SomeWork\Exception;
 
 
-class ErrorCodeEnum
+class ImportException extends \RuntimeException
 {
-    const MODULE_LOAD = 500;
-    const TIME_LIMIT_CHANGE = 501;
-    const MEMORY_LIMIT_CHANGE = 502;
 
-    const REQUIRED_SOURCE = 503;
-    const INVALID_SOURCE = 504;
 }
