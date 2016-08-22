@@ -17,8 +17,9 @@
 
 namespace SomeWork\Sale\Import;
 
-
-use Bitrix\Main\Application;use Bitrix\Sale\Location\Import\ImportProcess as BitrixImportProcess;use SomeWork\Exception\ImportException;
+use Bitrix\Main\Application;
+use Bitrix\Sale\Location\Import\ImportProcess as BitrixImportProcess;
+use SomeWork\Exception\ImportException;
 
 class ImportProcess extends Process
 {
@@ -213,6 +214,41 @@ class ImportProcess extends Process
         }
     }
 
+    /**
+     * @return string
+     * @throws \SomeWork\Exception\ImportException
+     */
+    protected function getSource()
+    {
+        if (!array_key_exists('SOURCE', $this->arOptions)) {
+            $this->setSource(BitrixImportProcess::SOURCE_REMOTE);
+        }
+        return $this->arOptions['SOURCE'];
+    }
+
+    /**
+     * @param $source
+     *
+     * @return $this
+     * @throws \SomeWork\Exception\ImportException
+     */
+    protected function setSource($source)
+    {
+        if (!in_array($source, [BitrixImportProcess::SOURCE_FILE, BitrixImportProcess::SOURCE_REMOTE], true)) {
+            throw new ImportException('Wrong source type passed');
+        }
+        $this->arOptions['SOURCE'] = $source;
+        return $this;
+    }
+
+    protected function localSourceSet()
+    {
+        $_FILES[md5($this->file['tmp_name'])] = [
+            'tmp_name' => $this->file['tmp_name'],
+            'type'     => $this->file['type'],
+        ];
+    }
+
     protected function remoteSourceSet()
     {
         $_REQUEST['LOCATION_SETS'] = $this->locationSets;
@@ -224,14 +260,6 @@ class ImportProcess extends Process
             return;
         }
         $this->reset();
-    }
-
-    protected function localSourceSet()
-    {
-        $_FILES[md5($this->file['tmp_name'])] = [
-            'tmp_name' => $this->file['tmp_name'],
-            'type'     => $this->file['type'],
-        ];
     }
 
     /**
@@ -264,21 +292,6 @@ class ImportProcess extends Process
     }
 
     /**
-     * @param $source
-     *
-     * @return $this
-     * @throws \SomeWork\Exception\ImportException
-     */
-    protected function setSource($source)
-    {
-        if (!in_array($source, [BitrixImportProcess::SOURCE_FILE, BitrixImportProcess::SOURCE_REMOTE], true)) {
-            throw new ImportException('Wrong source type passed');
-        }
-        $this->arOptions['SOURCE'] = $source;
-        return $this;
-    }
-
-    /**
      * @param array $arAdditional
      *
      * @return $this
@@ -287,16 +300,6 @@ class ImportProcess extends Process
     {
         $this->additional = $arAdditional;
         return $this;
-    }    /**
-     * @return string
-     * @throws \SomeWork\Exception\ImportException
-     */
-    protected function getSource()
-    {
-        if (!array_key_exists('SOURCE', $this->arOptions)) {
-            $this->setSource(BitrixImportProcess::SOURCE_REMOTE);
-        }
-        return $this->arOptions['SOURCE'];
     }
 
     /**
